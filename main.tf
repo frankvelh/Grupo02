@@ -10,35 +10,24 @@ terraform {
 provider "docker" {
   host    = "npipe:////.//pipe//docker_engine"
 }
-#Image01
-resource "docker_image" "nginx01" {
-  name         = "nginx"
-  keep_locally = false
-}
-
-#Imagen02
-resource "docker_image" "nginx02" {
-  name         = "nginx:latest"
-  keep_locally = false
-}
-
-#Contenedor 1
-resource "docker_container" "nginx_conteiner_01" {
-  image = docker_image.nginx01.image_id
-  name  = "Imagen01"
-
-  ports {
+#Contenedor01
+resource "docker_container" "container_servidor_web01" {
+  name         = "servidor_web01"
+  image = "nginx:latest"
+   ports {
+    external = var.web_server_port01
     internal = 80
-    external = 8002
-  }
+   }
 }
-resource "docker_container" "nginx_conteiner_02" {
-  image = docker_image.nginx02.image_id
-  name  = "Imagen02"
 
-  ports {
+#Contenedor02
+resource "docker_container" "container_servidor_web02" {
+  name         = "servidor_web02"
+  image = "nginx:latest"
+   ports {
+    external = var.web_server_port02
     internal = 80
-    external = 8004
-  }
-   depends_on = [docker_image.nginx01]
+    
+}
+
 }
