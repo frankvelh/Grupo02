@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "docker" {
-  host    = "npipe:////.//pipe//docker_engine"
+ # host    = "npipe:////.//pipe//docker_engine"
 }
 #Contenedor01
 resource "docker_container" "container_servidor_web01" {
